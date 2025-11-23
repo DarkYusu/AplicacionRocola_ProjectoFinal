@@ -93,17 +93,17 @@
 
             <ImageView
                 android:id="@+id/rocola_image"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:scaleType="centerCrop"
+                android:layout_width="377dp"
+                android:layout_height="136dp"
                 android:contentDescription="@string/content_album_art"
+                android:scaleType="centerCrop"
                 android:src="@mipmap/ic_launcher"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintWidth_percent="0.9"
-                app:layout_constraintDimensionRatio="432:176" />
+                app:layout_constraintDimensionRatio="432:176"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.9" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
