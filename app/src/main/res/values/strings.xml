@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">AplicacionRocola_ProjectoFinal</string>
+
+    <!-- Strings añadidos para el layout activity_main -->
+    <string name="home_title_text">Inicio</string>
+    <string name="admin_button_label">Admin</string>
+    <string name="content_album_art">Arte del álbum</string>
+    <string name="menu_label_text">Menu Restaurant</string>
+    <string name="rocola_label_text">Rocola</string>
+    <string name="recommended_label_text">Recomendados</string>
+</resources>

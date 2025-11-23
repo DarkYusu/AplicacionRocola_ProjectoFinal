@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "258340542716",
+    "project_id": "rocola-675d4",
+    "storage_bucket": "rocola-675d4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:258340542716:android:41fc64663c2ae53bbf9f79",
+        "android_client_info": {
+          "package_name": "com.aplicaciones_android.aplicacionrocola_projectofinal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVzV-QknGhNFJkxv_bnrVAOWK_DKiQ_h0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
