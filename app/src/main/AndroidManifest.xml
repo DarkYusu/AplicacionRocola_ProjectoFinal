@@ -18,11 +18,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AplicacionRocola_ProjectoFinal">
         <activity
-            android:name=".ManageDishesActivity"
+            android:name=".ui.admin.ManageDishesActivity"
             android:exported="false"
             android:label="@string/manage_dishes_button" />
         <activity
-            android:name=".AdminActivity"
+            android:name=".ui.admin.AdminActivity"
             android:exported="false"
             android:label="@string/admin_button_label" />
         <activity

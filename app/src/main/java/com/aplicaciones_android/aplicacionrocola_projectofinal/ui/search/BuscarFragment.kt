@@ -1,4 +1,4 @@
-package com.aplicaciones_android.aplicacionrocola_projectofinal
+package com.aplicaciones_android.aplicacionrocola_projectofinal.ui.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,10 +13,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.aplicaciones_android.aplicacionrocola_projectofinal.PlaylistManager
+import com.aplicaciones_android.aplicacionrocola_projectofinal.R
+import com.aplicaciones_android.aplicacionrocola_projectofinal.ui.common.SongItemAdapter
 import com.aplicaciones_android.aplicacionrocola_projectofinal.data.remote.YoutubeRemoteDataSource
 import com.aplicaciones_android.aplicacionrocola_projectofinal.data.repository.SearchRepository
-import com.aplicaciones_android.aplicacionrocola_projectofinal.ui.search.BuscarViewModel
-import com.aplicaciones_android.aplicacionrocola_projectofinal.ui.search.BuscarViewModelFactory
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import kotlinx.coroutines.flow.collectLatest

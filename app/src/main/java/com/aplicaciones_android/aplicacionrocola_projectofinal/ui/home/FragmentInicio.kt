@@ -1,4 +1,4 @@
-package com.aplicaciones_android.aplicacionrocola_projectofinal
+package com.aplicaciones_android.aplicacionrocola_projectofinal.ui.home
 
 import android.content.Intent
 import android.os.Bundle
@@ -16,6 +16,12 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.aplicaciones_android.aplicacionrocola_projectofinal.data.FirebaseUtils
+import com.aplicaciones_android.aplicacionrocola_projectofinal.ui.admin.AdminActivity
+import com.aplicaciones_android.aplicacionrocola_projectofinal.ui.menu.MenuFragment
+import com.aplicaciones_android.aplicacionrocola_projectofinal.PlaylistManager
+import com.aplicaciones_android.aplicacionrocola_projectofinal.R
+import com.aplicaciones_android.aplicacionrocola_projectofinal.ui.common.SongItemAdapter
 import com.aplicaciones_android.aplicacionrocola_projectofinal.data.model.SongItem
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
