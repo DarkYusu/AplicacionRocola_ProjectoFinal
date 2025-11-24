@@ -56,4 +56,6 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore-ktx:24.5.0")
     implementation("androidx.activity:activity-ktx:1.7.2")
     implementation("androidx.fragment:fragment-ktx:1.6.0")
+    // OkHttp para llamadas a YouTube Data API
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
 }
