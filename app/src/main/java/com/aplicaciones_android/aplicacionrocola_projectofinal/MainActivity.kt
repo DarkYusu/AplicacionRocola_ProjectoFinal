@@ -3,36 +3,46 @@ package com.aplicaciones_android.aplicacionrocola_projectofinal
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.aplicaciones_android.aplicacionrocola_projectofinal.model.CarouselItem
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main_root)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        // Cargar fragmento inicio
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, FragmentInicio())
+                .commit()
         }
 
-        // Inicializar RecyclerView con 6 items de ejemplo
-        val recycler = findViewById<RecyclerView>(R.id.carousel_recycler)
-        recycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-
-        val sample = listOf(
-            CarouselItem("1", "Top Hits", R.drawable.ic_placeholder_music, "Banda A"),
-            CarouselItem("2", "Relax", R.drawable.ic_placeholder_music, "Banda B"),
-            CarouselItem("3", "Rock Classics", R.drawable.ic_placeholder_music, "Banda C"),
-            CarouselItem("4", "Indie", R.drawable.ic_placeholder_music, "Banda D"),
-            CarouselItem("5", "Latino", R.drawable.ic_placeholder_music, "Banda E"),
-            CarouselItem("6", "Electronic", R.drawable.ic_placeholder_music, "Banda F")
-        )
-
-        recycler.adapter = CarouselAdapter(sample)
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
+        bottomNav.bringToFront()
+        bottomNav.selectedItemId = R.id.nav_inicio
+        bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_inicio -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, FragmentInicio())
+                        .commit()
+                    true
+                }
+                R.id.nav_buscar -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, BuscarFragment())
+                        .commit()
+                    true
+                }
+                R.id.nav_playlist -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, PlaylistFragment())
+                        .commit()
+                    true
+                }
+                else -> false
+            }
+        }
     }
 }
