@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONObject
@@ -74,6 +75,8 @@ class FragmentInicio : Fragment() {
         // Cargar últimas imágenes subidas por admin para banner y rocola
         loadLatestImage("menu_images", menuImage, R.id.tag_menu_image_url)
         loadLatestImage("rocola_images", rocolaImage, R.id.tag_rocola_image_url)
+        menuImage.setOnClickListener { navigateTo(R.id.nav_menu) }
+        rocolaImage.setOnClickListener { navigateTo(R.id.nav_buscar) }
 
         // Configurar RecyclerView para mostrar lista vertical de canciones recomendadas
         // Mostrar los items en horizontal (fila) para la sección de recomendados
@@ -246,5 +249,10 @@ class FragmentInicio : Fragment() {
         matcher.group(2)?.toLongOrNull()?.let { minutes = it }
         matcher.group(3)?.toLongOrNull()?.let { seconds = it }
         return hours * 3600 + minutes * 60 + seconds
+    }
+
+    private fun navigateTo(tabId: Int) {
+        val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav)
+        bottomNav.selectedItemId = tabId
     }
 }
