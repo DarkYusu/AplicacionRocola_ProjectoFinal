@@ -1,8 +1,32 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.AplicacionRocola_ProjectoFinal" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:statusBarColor">@color/roc_purple_dark</item>
+        <item name="android:navigationBarColor">@color/roc_purple_dark</item>
+        <item name="colorPrimary">@color/roc_purple</item>
+        <item name="colorPrimaryContainer">@color/roc_purple_dark</item>
+        <item name="colorSecondary">@color/roc_accent</item>
+        <item name="colorSecondaryContainer">@color/roc_accent_dark</item>
+        <item name="android:colorBackground">@color/roc_background</item>
+        <item name="materialCardViewStyle">@style/RocCardStyle</item>
+        <item name="android:buttonStyle">@style/RocButtonStyle</item>
+        <item name="android:textViewStyle">@style/RocTextStyle</item>
+    </style>
+
+    <style name="RocButtonStyle" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/roc_purple</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="cornerRadius">16dp</item>
+    </style>
+
+    <style name="RocTextStyle" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="RocCardStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">20dp</item>
+        <item name="cardBackgroundColor">@color/roc_card_bg</item>
+        <item name="cardElevation">6dp</item>
     </style>
 
     <style name="Theme.AplicacionRocola_ProjectoFinal" parent="Base.Theme.AplicacionRocola_ProjectoFinal" />

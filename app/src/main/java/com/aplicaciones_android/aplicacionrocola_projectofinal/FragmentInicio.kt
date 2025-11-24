@@ -26,9 +26,8 @@ import java.util.regex.Pattern
 import kotlin.concurrent.thread
 
 class FragmentInicio : Fragment() {
-
     // Cambia a `false` si no quieres datos de ejemplo cuando Firestore/YouTube esté vacío
-    private val SHOW_SAMPLE_IF_EMPTY = true
+    private val SHOW_SAMPLE_IF_EMPTY = false
 
     // YouTube API key (se usa también en BuscarFragment). Si tienes un lugar central, mejor moverlo.
     private val YOUTUBE_API_KEY = "AIzaSyC0LLj7FwpsNE0h2hmtxf6AnKqEKZX6rBU"
@@ -38,6 +37,8 @@ class FragmentInicio : Fragment() {
     private lateinit var recommendedRecycler: RecyclerView
     private lateinit var songAdapter: SongItemAdapter
     private lateinit var recommendedStatus: TextView
+
+    private var lastRecommended: List<SongItem> = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,12 +72,8 @@ class FragmentInicio : Fragment() {
         }
 
         // Cargar últimas imágenes subidas por admin para banner y rocola
-        loadLatestImage("menu_images") { url ->
-            url?.let { menuImage.load(it) }
-        }
-        loadLatestImage("rocola_images") { url ->
-            url?.let { rocolaImage.load(it) }
-        }
+        loadLatestImage("menu_images", menuImage, R.id.tag_menu_image_url)
+        loadLatestImage("rocola_images", rocolaImage, R.id.tag_rocola_image_url)
 
         // Configurar RecyclerView para mostrar lista vertical de canciones recomendadas
         // Mostrar los items en horizontal (fila) para la sección de recomendados
@@ -94,7 +91,7 @@ class FragmentInicio : Fragment() {
         loadRecommendedFromYouTube("rock music")
     }
 
-    private fun loadLatestImage(collection: String, callback: (String?) -> Unit) {
+    private fun loadLatestImage(collection: String, targetView: ImageView, tagId: Int) {
         val db = FirebaseFirestore.getInstance()
         db.collection(collection)
             .orderBy("createdAt", Query.Direction.DESCENDING)
@@ -104,13 +101,15 @@ class FragmentInicio : Fragment() {
                 if (!snaps.isEmpty) {
                     val doc = snaps.documents[0]
                     val url = doc.getString("imageUrl")
-                    callback(url)
-                } else {
-                    callback(null)
+                    if (!url.isNullOrBlank() && targetView.getTag(tagId) != url) {
+                        targetView.setTag(tagId, url)
+                        targetView.load(url) {
+                            crossfade(true)
+                            placeholder(R.drawable.bg_image_placeholder)
+                            error(R.drawable.bg_image_placeholder)
+                        }
+                    }
                 }
-            }
-            .addOnFailureListener {
-                callback(null)
             }
     }
 
@@ -131,100 +130,42 @@ class FragmentInicio : Fragment() {
                 val body = resp.body?.string() ?: ""
                 val json = JSONObject(body)
                 val arr = json.optJSONArray("items")
-                val videoIds = mutableListOf<String>()
-                val rawItems = mutableListOf<JSONObject>()
+                val items = mutableListOf<SongItem>()
 
                 if (arr != null) {
                     for (i in 0 until arr.length()) {
-                        val itobj = arr.getJSONObject(i)
-                        val idObj = itobj.optJSONObject("id")
-                        val videoId = idObj?.optString("videoId") ?: ""
-                        if (videoId.isNotEmpty()) {
-                            rawItems.add(itobj)
-                            videoIds.add(videoId)
-                        }
-                    }
-                }
-
-                val items = mutableListOf<SongItem>()
-
-                if (videoIds.isNotEmpty()) {
-                    val idsParam = videoIds.joinToString(",")
-                    val videosUrl = "https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=$idsParam&key=$YOUTUBE_API_KEY"
-                    val req2 = Request.Builder().url(videosUrl).build()
-                    val resp2 = client.newCall(req2).execute()
-                    val body2 = resp2.body?.string() ?: ""
-                    val j2 = JSONObject(body2)
-                    val arr2 = j2.optJSONArray("items")
-
-                    val categoryMap = mutableMapOf<String, String>()
-                    val durationMap = mutableMapOf<String, Long>()
-
-                    if (arr2 != null) {
-                        for (i in 0 until arr2.length()) {
-                            val v = arr2.getJSONObject(i)
-                            val vid = v.optString("id")
-                            val snippet = v.optJSONObject("snippet")
-                            val cat = snippet?.optString("categoryId") ?: ""
-                            val content = v.optJSONObject("contentDetails")
-                            val durationIso = content?.optString("duration") ?: ""
-                            val durationSec = parseIso8601Duration(durationIso)
-                            if (vid.isNotEmpty()) {
-                                categoryMap[vid] = cat
-                                durationMap[vid] = durationSec
-                            }
-                        }
-                    }
-
-                    for (obj in rawItems) {
+                        val obj = arr.getJSONObject(i)
                         val idObj = obj.optJSONObject("id")
-                        val videoId = idObj?.optString("videoId") ?: ""
-                        val catId = categoryMap[videoId] ?: ""
-                        val dur = durationMap[videoId] ?: 0L
+                        val videoId = idObj?.optString("videoId") ?: continue
+                        val snippet = obj.optJSONObject("snippet") ?: continue
 
-                        // Filtrar sólo música (categoria 10) y duración razonable
-                        if (catId != "10") continue
-                        if (dur < 60 || dur > 600) continue
-
-                        val snippet = obj.getJSONObject("snippet")
                         val rawTitle = htmlDecode(snippet.optString("title"))
                         val channel = htmlDecode(snippet.optString("channelTitle"))
-                        // No aplicar filtro adicional por texto; la query "rock music" ya prioriza el género.
+                        val videoUrl = "https://www.youtube.com/watch?v=$videoId"
+
                         val thumbnails = snippet.optJSONObject("thumbnails")
-                        var thumb = ""
-                        if (thumbnails != null) {
-                            thumb = when {
-                                thumbnails.has("high") -> thumbnails.getJSONObject("high").optString("url")
-                                thumbnails.has("medium") -> thumbnails.getJSONObject("medium").optString("url")
-                                thumbnails.has("default") -> thumbnails.getJSONObject("default").optString("url")
-                                else -> ""
-                            }
+                        val thumb = when {
+                            thumbnails?.has("high") == true -> thumbnails.getJSONObject("high").optString("url")
+                            thumbnails?.has("medium") == true -> thumbnails.getJSONObject("medium").optString("url")
+                            thumbnails?.has("default") == true -> thumbnails.getJSONObject("default").optString("url")
+                            else -> ""
                         }
 
                         val (songName, artistName) = parseTitle(rawTitle, channel)
-                        val songItem = SongItem(thumb, songName, artistName)
-                        items.add(songItem)
+                        items.add(SongItem(thumb, songName, artistName, videoUrl))
                     }
                 }
 
                 activity?.runOnUiThread {
                     if (items.isEmpty()) {
-                        if (SHOW_SAMPLE_IF_EMPTY) {
-                            // fallback de ejemplo
-                            val pkg = requireContext().packageName
-                            val resUri = "android.resource://$pkg/" + R.mipmap.ic_launcher
-                            val sample = listOf(
-                                SongItem(resUri, "Ejemplo: Canción A", "Artista A"),
-                                SongItem(resUri, "Ejemplo: Canción B", "Artista B"),
-                                SongItem(resUri, "Ejemplo: Canción C", "Artista C")
-                            )
-                            songAdapter.update(sample)
-                            recommendedStatus.visibility = View.GONE
-                        } else {
+                        if (lastRecommended.isEmpty()) {
                             recommendedStatus.text = getString(R.string.no_songs_found)
                             recommendedStatus.visibility = View.VISIBLE
+                        } else {
+                            recommendedStatus.visibility = View.GONE
                         }
                     } else {
+                        lastRecommended = items
                         songAdapter.update(items)
                         recommendedStatus.visibility = View.GONE
                     }
@@ -233,19 +174,11 @@ class FragmentInicio : Fragment() {
             } catch (e: Exception) {
                 Log.e("FragmentInicio", "error fetching from YouTube API", e)
                 activity?.runOnUiThread {
-                    if (SHOW_SAMPLE_IF_EMPTY) {
-                        val pkg = requireContext().packageName
-                        val resUri = "android.resource://$pkg/" + R.mipmap.ic_launcher
-                        val sample = listOf(
-                            SongItem(resUri, "Ejemplo: Canción A", "Artista A"),
-                            SongItem(resUri, "Ejemplo: Canción B", "Artista B"),
-                            SongItem(resUri, "Ejemplo: Canción C", "Artista C")
-                        )
-                        songAdapter.update(sample)
-                        recommendedStatus.visibility = View.GONE
-                    } else {
+                    if (lastRecommended.isEmpty()) {
                         recommendedStatus.text = getString(R.string.error_searching_songs)
                         recommendedStatus.visibility = View.VISIBLE
+                    } else {
+                        recommendedStatus.visibility = View.GONE
                     }
                 }
             }

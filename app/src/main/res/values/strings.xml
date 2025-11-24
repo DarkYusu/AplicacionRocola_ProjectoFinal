@@ -28,4 +28,27 @@
     <string name="playlist_empty">Tu playlist está vacía. Añade canciones desde Inicio o Buscar.</string>
     <string name="playlist_header_label">Ahora suena</string>
     <string name="playlist_title">Playlist</string>
+    <string name="admin_dish_section_title">Gestión de platos</string>
+    <string name="select_dish_image">Seleccionar imagen del plato</string>
+    <string name="dish_name_hint">Nombre del plato</string>
+    <string name="dish_description_hint">Descripción</string>
+    <string name="dish_price_hint">Precio</string>
+    <string name="save_dish_button">Guardar plato</string>
+    <string name="clear_form_button">Limpiar</string>
+    <string name="dish_form_status">Ingresa los datos del plato.</string>
+    <string name="dish_list_empty_admin">Todavía no hay platos registrados.</string>
+    <string name="menu_title">Menú Restaurant</string>
+    <string name="menu_empty_message">Aún no hay platos disponibles.</string>
+    <string name="nav_menu_title">Menú</string>
+    <string name="dish_saved">Plato guardado correctamente</string>
+    <string name="dish_updated">Plato actualizado</string>
+    <string name="dish_deleted">Plato eliminado</string>
+    <string name="dish_save_error">Error guardando el plato</string>
+    <string name="dish_delete_error">Error eliminando el plato</string>
+    <string name="dish_image_cd">Imagen del plato</string>
+    <string name="manage_dishes_button">Gestionar menú restaurant</string>
+    <string name="dish_editing_label">Editando plato</string>
+    <string name="dish_image_selected">Imagen del plato seleccionada</string>
+    <string name="dish_price_prefix">$</string>
+    <string name="dish_complete_fields">Completa nombre y descripción</string>
 </resources>

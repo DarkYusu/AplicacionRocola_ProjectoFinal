@@ -38,4 +38,3 @@ class PlaylistAdapter(private var items: List<SongItem>) : RecyclerView.Adapter<
         notifyDataSetChanged()
     }
 }
-

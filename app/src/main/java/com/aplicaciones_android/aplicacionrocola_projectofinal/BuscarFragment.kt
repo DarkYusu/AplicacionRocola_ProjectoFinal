@@ -198,6 +198,7 @@ class BuscarFragment : Fragment() {
                         val snippet = obj.getJSONObject("snippet")
                         val rawTitle = snippet.optString("title")
                         val channel = snippet.optString("channelTitle")
+                        val videoUrl = "https://www.youtube.com/watch?v=$videoId"
                         val thumbnails = snippet.optJSONObject("thumbnails")
                         var thumb = ""
                         if (thumbnails != null) {
@@ -221,7 +222,7 @@ class BuscarFragment : Fragment() {
                         if (excluded) continue
 
                         val (songName, artistName) = parseTitle(rawTitle, channel)
-                        val songItem = SongItem(thumb, songName, artistName)
+                        val songItem = SongItem(thumb, songName, artistName, videoUrl)
 
                         if (channelLower.contains("vevo")) {
                             vevoItems.add(songItem)

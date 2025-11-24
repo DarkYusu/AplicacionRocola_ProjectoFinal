@@ -55,5 +55,12 @@
             android:text="@string/upload_button"
             android:layout_marginTop="16dp"/>
 
+        <Button
+            android:id="@+id/manage_dishes_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/manage_dishes_button"
+            android:layout_marginTop="24dp" />
+
     </LinearLayout>
 </ScrollView>

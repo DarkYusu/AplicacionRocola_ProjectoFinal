@@ -4,7 +4,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- Opcional: permiso legacy para versiones antiguas; en Android 13+ preferir READ_MEDIA_IMAGES en runtime -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
 
     <application
         android:allowBackup="true"
@@ -15,6 +17,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AplicacionRocola_ProjectoFinal">
+        <activity
+            android:name=".ManageDishesActivity"
+            android:exported="false"
+            android:label="@string/manage_dishes_button" />
         <activity
             android:name=".AdminActivity"
             android:exported="false"

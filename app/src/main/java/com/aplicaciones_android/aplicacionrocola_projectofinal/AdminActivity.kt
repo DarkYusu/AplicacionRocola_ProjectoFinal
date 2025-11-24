@@ -22,6 +22,7 @@ class AdminActivity : AppCompatActivity() {
     private lateinit var uploadBtn: Button
     private lateinit var previewImage: ImageView
     private lateinit var statusText: TextView
+    private lateinit var manageDishesButton: Button
     private var selectedUri: Uri? = null
     private var targetFolder: String = "menu"
 
@@ -29,7 +30,7 @@ class AdminActivity : AppCompatActivity() {
         uri?.let {
             selectedUri = it
             previewImage.load(it)
-            statusText.text = "Imagen seleccionada"
+            statusText.text = getString(R.string.dish_image_selected)
         }
     }
 
@@ -51,6 +52,7 @@ class AdminActivity : AppCompatActivity() {
         uploadBtn = findViewById(R.id.button_upload)
         previewImage = findViewById(R.id.image_preview)
         statusText = findViewById(R.id.text_status)
+        manageDishesButton = findViewById(R.id.manage_dishes_button)
 
         selectMenuBtn.setOnClickListener {
             targetFolder = "menu"
@@ -69,10 +71,13 @@ class AdminActivity : AppCompatActivity() {
             }
         }
 
+        manageDishesButton.setOnClickListener {
+            startActivity(Intent(this, ManageDishesActivity::class.java))
+        }
     }
 
     private fun uploadImage(uri: Uri, folder: String) {
-        statusText.text = "Subiendo..."
+        statusText.text = getString(R.string.upload_button)
         val storageRef = FirebaseStorage.getInstance().reference
         val id = UUID.randomUUID().toString()
         val path = "$folder/$id.jpg"

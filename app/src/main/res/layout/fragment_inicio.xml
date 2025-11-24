@@ -44,16 +44,12 @@
 
             <ImageView
                 android:id="@+id/menu_image"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="12dp"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/ic_launcher"
-                android:contentDescription="@string/menu_image_cd"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="432:176" />
+                android:contentDescription="@string/menu_image_cd" />
 
             <TextView
                 android:id="@+id/menu_label"
@@ -87,17 +83,11 @@
 
             <ImageView
                 android:id="@+id/rocola_image"
-                android:layout_width="377dp"
-                android:layout_height="136dp"
-                android:contentDescription="@string/rocola_image_cd"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/ic_launcher"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="432:176"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.9" />
+                android:contentDescription="@string/rocola_image_cd" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

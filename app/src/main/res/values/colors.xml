@@ -3,4 +3,13 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="teal_200">#FF03DAC5</color>
+    <color name="roc_purple">#5E60CE</color>
+    <color name="roc_purple_dark">#4B4FC1</color>
+    <color name="roc_accent">#F72585</color>
+    <color name="roc_accent_dark">#B5179E</color>
+    <color name="roc_background">#F8F9FD</color>
+    <color name="roc_card_bg">#FFFFFFFF</color>
+    <color name="roc_nav_bg">#FFFFFFFF</color>
+    <color name="roc_nav_icon">#FF5E60CE</color>
+    <color name="roc_nav_icon_inactive">#FF9FA0C1</color>
 </resources>

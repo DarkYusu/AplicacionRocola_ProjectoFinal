@@ -3,6 +3,7 @@ package com.aplicaciones_android.aplicacionrocola_projectofinal
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -10,6 +11,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
+        PlaylistManager.initialize(this)
 
         // Cargar fragmento inicio
         if (savedInstanceState == null) {
@@ -23,26 +25,23 @@ class MainActivity : AppCompatActivity() {
         bottomNav.selectedItemId = R.id.nav_inicio
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.nav_inicio -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, FragmentInicio())
-                        .commit()
-                    true
-                }
-                R.id.nav_buscar -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, BuscarFragment())
-                        .commit()
-                    true
-                }
-                R.id.nav_playlist -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, PlaylistFragment())
-                        .commit()
-                    true
-                }
+                R.id.nav_inicio -> openFragment(FragmentInicio())
+                R.id.nav_menu -> openFragment(MenuFragment())
+                R.id.nav_buscar -> openFragment(BuscarFragment())
+                R.id.nav_playlist -> openFragment(PlaylistFragment())
                 else -> false
             }
         }
+    }
+
+    private fun openFragment(fragment: Fragment): Boolean {
+        supportFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                android.R.anim.fade_in,
+                android.R.anim.fade_out
+            )
+            .replace(R.id.fragment_container, fragment)
+            .commit()
+        return true
     }
 }

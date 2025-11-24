@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 
-data class SongItem(val thumbnail: String, val title: String, val channel: String)
+data class SongItem(val thumbnail: String, val title: String, val channel: String, val videoUrl: String)
 
 class SongItemAdapter(private var items: MutableList<SongItem>, private val onAddToPlaylist: ((SongItem) -> Unit)? = null) : RecyclerView.Adapter<SongItemAdapter.VH>() {
 
