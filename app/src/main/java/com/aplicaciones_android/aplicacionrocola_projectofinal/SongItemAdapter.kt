@@ -8,10 +8,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.aplicaciones_android.aplicacionrocola_projectofinal.data.model.SongItem
 
-data class SongItem(val thumbnail: String, val title: String, val channel: String, val videoUrl: String)
-
-class SongItemAdapter(private var items: MutableList<SongItem>, private val onAddToPlaylist: ((SongItem) -> Unit)? = null) : RecyclerView.Adapter<SongItemAdapter.VH>() {
+class SongItemAdapter(
+    private var items: MutableList<SongItem>,
+    private val onAddToPlaylist: ((SongItem) -> Unit)? = null
+) : RecyclerView.Adapter<SongItemAdapter.VH>() {
 
     class VH(view: View) : RecyclerView.ViewHolder(view) {
         val image: ImageView = view.findViewById(R.id.song_image)

@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.aplicaciones_android.aplicacionrocola_projectofinal.data.model.SongItem
 
 class PlaylistAdapter(private var items: List<SongItem>) : RecyclerView.Adapter<PlaylistAdapter.VH>() {
 
