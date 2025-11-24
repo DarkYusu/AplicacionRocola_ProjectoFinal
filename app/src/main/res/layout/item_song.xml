@@ -10,13 +10,14 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/ic_launcher"
+        android:contentDescription="@string/content_album_art" />
 
     <TextView
         android:id="@+id/song_title"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:text="Título"
+        android:text="@string/song_title_placeholder"
         android:textSize="12sp"
         android:ellipsize="end"
         android:maxLines="1" />
@@ -25,9 +26,17 @@
         android:id="@+id/song_artist"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:text="Artista"
+        android:text="@string/song_artist_placeholder"
         android:textSize="12sp"
         android:ellipsize="end"
         android:maxLines="1" />
+
+    <Button
+        android:id="@+id/add_to_playlist_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/add_to_playlist"
+        android:textSize="12sp" />
 
 </LinearLayout>

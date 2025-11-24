@@ -14,7 +14,7 @@
             android:id="@+id/text_status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Estado"
+            android:text="@string/admin_status_label"
             android:padding="8dp" />
 
         <ImageView
@@ -22,7 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/ic_launcher"
+            android:contentDescription="@string/menu_image_cd" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -35,14 +36,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Seleccionar imagen (Menu)" />
+                android:text="@string/select_menu_image" />
 
             <Button
                 android:id="@+id/button_select_rocola"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Seleccionar imagen (Rocola)"
+                android:text="@string/select_rocola_image"
                 android:layout_marginStart="8dp" />
 
         </LinearLayout>
@@ -51,7 +52,7 @@
             android:id="@+id/button_upload"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Subir"
+            android:text="@string/upload_button"
             android:layout_marginTop="16dp"/>
 
     </LinearLayout>

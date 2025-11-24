@@ -9,6 +9,7 @@
         android:layout_width="140dp"
         android:layout_height="100dp"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/ic_launcher"
+        android:contentDescription="@string/menu_image_cd" />
 
 </FrameLayout>

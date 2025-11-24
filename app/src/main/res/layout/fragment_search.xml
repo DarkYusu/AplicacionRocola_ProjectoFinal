@@ -4,33 +4,40 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="12dp">
+    android:padding="12dp"
+    android:fitsSystemWindows="true"
+    android:gravity="center_horizontal">
 
-    <LinearLayout
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:queryHint="Buscar canciones" />
 
-        <EditText
-            android:id="@+id/search_input"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:hint="Buscar en YouTube" />
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        style="?android:attr/progressBarStyleSmall" />
 
-        <Button
-            android:id="@+id/search_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Buscar" />
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/status_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:visibility="gone"
+        android:gravity="center"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp" />
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chip_group"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_gravity="center"
         app:singleSelection="true"
         app:chipSpacing="8dp">
 
@@ -38,25 +45,25 @@
             android:id="@+id/chip_rock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Rock" />
+            android:text="@string/chip_rock" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_metal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Metal" />
+            android:text="@string/chip_metal" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_punk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Punk" />
+            android:text="@string/chip_punk" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_trash"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Trash" />
+            android:text="@string/chip_trash" />
 
     </com.google.android.material.chip.ChipGroup>
 

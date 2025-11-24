@@ -8,4 +8,24 @@
     <string name="menu_label_text">Menu Restaurant</string>
     <string name="rocola_label_text">Rocola</string>
     <string name="recommended_label_text">Recomendados</string>
+    <string name="chip_rock">Rock</string>
+    <string name="chip_metal">Metal</string>
+    <string name="chip_punk">Punk</string>
+    <string name="chip_trash">Trash-metal</string>
+    <string name="no_songs_found">No se encontraron canciones</string>
+    <string name="error_searching_songs">Error buscando canciones</string>
+    <string name="buscar_en_desarrollo">Buscar - En desarrollo</string>
+    <string name="menu_image_cd">Imagen del menú</string>
+    <string name="rocola_image_cd">Imagen de la rocola</string>
+    <string name="song_title_placeholder">Título</string>
+    <string name="song_artist_placeholder">Artista</string>
+    <string name="admin_status_label">Estado</string>
+    <string name="select_menu_image">Seleccionar imagen (Menu)</string>
+    <string name="select_rocola_image">Seleccionar imagen (Rocola)</string>
+    <string name="upload_button">Subir</string>
+    <string name="add_to_playlist">Añadir a playlist</string>
+    <string name="added_to_playlist">Canción añadida a la playlist</string>
+    <string name="playlist_empty">Tu playlist está vacía. Añade canciones desde Inicio o Buscar.</string>
+    <string name="playlist_header_label">Ahora suena</string>
+    <string name="playlist_title">Playlist</string>
 </resources>

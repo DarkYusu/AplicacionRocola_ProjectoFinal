@@ -24,7 +24,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="Inicio"
+                android:text="@string/home_title_text"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -32,7 +32,7 @@
                 android:id="@+id/admin_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Admin" />
+                android:text="@string/admin_button_label" />
 
         </LinearLayout>
 
@@ -48,6 +48,7 @@
                 android:layout_height="0dp"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/ic_launcher"
+                android:contentDescription="@string/menu_image_cd"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -58,7 +59,7 @@
                 android:id="@+id/menu_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Menu Restaurant"
+                android:text="@string/menu_label_text"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="#000000"
@@ -73,7 +74,7 @@
             android:id="@+id/rocola_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Rocola"
+            android:text="@string/rocola_label_text"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginTop="8dp"
@@ -88,7 +89,7 @@
                 android:id="@+id/rocola_image"
                 android:layout_width="377dp"
                 android:layout_height="136dp"
-                android:contentDescription="Rocola"
+                android:contentDescription="@string/rocola_image_cd"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/ic_launcher"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -104,14 +105,25 @@
             android:id="@+id/recommended_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Recomendados"
+            android:text="@string/recommended_label_text"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp" />
 
+        <!-- Estado cuando no hay recomendaciones -->
+        <TextView
+            android:id="@+id/recommended_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/no_songs_found"
+            android:visibility="gone"
+            android:gravity="center"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp" />
+
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/carousel_recycler"
+            android:id="@+id/recommended_recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -119,6 +131,7 @@
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             android:clipToPadding="false"
+            android:nestedScrollingEnabled="false"
             android:scrollbars="none" />
 
     </LinearLayout>
