@@ -22,7 +22,7 @@ import kotlin.concurrent.thread
 
 class BuscarFragment : Fragment() {
 
-    private val API_KEY = "AIzaSyC0LLj7FwpsNE0h2hmtxf6AnKqEKZX6rBU"
+    private val API_KEY = "AIzaSyBfJnGzFenvo58MxZZeiLNLwcmHYiWbmNw"
 
     private lateinit var input: SearchView
     private lateinit var chipGroup: ChipGroup
@@ -196,8 +196,8 @@ class BuscarFragment : Fragment() {
                         if (dur < 60 || dur > 600) continue
 
                         val snippet = obj.getJSONObject("snippet")
-                        val rawTitle = snippet.optString("title")
-                        val channel = snippet.optString("channelTitle")
+                        val rawTitle = htmlDecode(snippet.optString("title"))
+                        val channel = htmlDecode(snippet.optString("channelTitle"))
                         val videoUrl = "https://www.youtube.com/watch?v=$videoId"
                         val thumbnails = snippet.optJSONObject("thumbnails")
                         var thumb = ""
@@ -267,34 +267,54 @@ class BuscarFragment : Fragment() {
     }
 
     private fun parseTitle(rawTitle: String, channel: String): Pair<String, String> {
-        // Patrones comunes: "Artist - Song" o "Song - Artist"
         val separators = listOf(" - ", " – ", " — ", " | ")
         for (sep in separators) {
             if (rawTitle.contains(sep)) {
                 val parts = rawTitle.split(sep, limit = 2)
                 if (parts.size == 2) {
-                    val a = parts[0].trim()
-                    val b = parts[1].trim()
-                    // Si el canal coincide con alguna parte, usar canal como artista
+                    val first = parts[0].trim()
+                    val second = parts[1].trim()
                     return when {
-                        channel.contains(a, ignoreCase = true) -> Pair(b, channel)
-                        channel.contains(b, ignoreCase = true) -> Pair(a, channel)
-                        // Si la parte izquierda es corta (probablemente artista), asumir Artist - Song
-                        a.length < b.length -> Pair(b, a)
-                        else -> Pair(a, b)
+                        channel.contains(first, ignoreCase = true) -> Pair(second, channel)
+                        channel.contains(second, ignoreCase = true) -> Pair(first, channel)
+                        first.length < second.length -> Pair(second, first)
+                        else -> Pair(first, second)
                     }
                 }
             }
         }
-        // Si no hay separador, usar title como song y channel como artista
         return Pair(rawTitle, channel)
+    }
+
+    private fun htmlDecode(text: String?): String {
+        if (text.isNullOrEmpty()) return ""
+        var result = text
+        val numericEntityRegex = Regex("&#(x?[0-9A-Fa-f]+);")
+        result = numericEntityRegex.replace(result) { match ->
+            val value = match.groupValues[1]
+            try {
+                val codePoint = if (value.startsWith("x", ignoreCase = true)) {
+                    value.substring(1).toInt(16)
+                } else {
+                    value.toInt()
+                }
+                codePoint.toChar().toString()
+            } catch (_: Exception) {
+                match.value
+            }
+        }
+        return result
+            .replace("&amp;", "&")
+            .replace("&lt;", "<")
+            .replace("&gt;", ">")
+            .replace("&quot;", "\"")
+            .replace("&apos;", "'")
+            .replace("&#39;", "'")
     }
 
     private fun parseIso8601Duration(duration: String?): Long {
         if (duration.isNullOrEmpty()) return 0L
-        // ISO8601 example: PT1H2M3S or PT3M45S or PT45S
-        val pattern = Pattern.compile("PT(?:(\\d+)H)?(?:(\\d+)M)?(?:(\\d+)S)?")
-        val matcher = pattern.matcher(duration)
+        val matcher = Pattern.compile("PT(?:(\\d+)H)?(?:(\\d+)M)?(?:(\\d+)S)?").matcher(duration)
         if (!matcher.matches()) return 0L
         var hours = 0L
         var minutes = 0L

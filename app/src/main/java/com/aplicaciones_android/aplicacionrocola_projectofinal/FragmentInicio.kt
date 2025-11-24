@@ -31,7 +31,7 @@ class FragmentInicio : Fragment() {
     private val SHOW_SAMPLE_IF_EMPTY = false
 
     // YouTube API key (se usa también en BuscarFragment). Si tienes un lugar central, mejor moverlo.
-    private val YOUTUBE_API_KEY = "AIzaSyC0LLj7FwpsNE0h2hmtxf6AnKqEKZX6rBU"
+    private val YOUTUBE_API_KEY = "AIzaSyBfJnGzFenvo58MxZZeiLNLwcmHYiWbmNw"
 
     private lateinit var menuImage: ImageView
     private lateinit var rocolaImage: ImageView
@@ -136,6 +136,9 @@ class FragmentInicio : Fragment() {
                 val items = mutableListOf<SongItem>()
 
                 if (arr != null) {
+                    val vevoItems = mutableListOf<SongItem>()
+                    val otherItems = mutableListOf<SongItem>()
+
                     for (i in 0 until arr.length()) {
                         val obj = arr.getJSONObject(i)
                         val idObj = obj.optJSONObject("id")
@@ -155,23 +158,28 @@ class FragmentInicio : Fragment() {
                         }
 
                         val (songName, artistName) = parseTitle(rawTitle, channel)
-                        items.add(SongItem(thumb, songName, artistName, videoUrl))
+                        val bucket = if (channel.contains("VEVO", ignoreCase = true)) vevoItems else otherItems
+                        bucket.add(SongItem(thumb, songName, artistName, videoUrl))
                     }
-                }
 
-                activity?.runOnUiThread {
-                    if (items.isEmpty()) {
-                        if (lastRecommended.isEmpty()) {
-                            recommendedStatus.text = getString(R.string.no_songs_found)
-                            recommendedStatus.visibility = View.VISIBLE
-                        } else {
+                    activity?.runOnUiThread {
+                        val ordered = if (vevoItems.isNotEmpty()) vevoItems + otherItems else otherItems
+                        if (ordered.isNotEmpty()) {
+                            lastRecommended = ordered
+                            songAdapter.update(ordered)
                             recommendedStatus.visibility = View.GONE
+                            return@runOnUiThread
                         }
-                    } else {
-                        lastRecommended = items
-                        songAdapter.update(items)
-                        recommendedStatus.visibility = View.GONE
+                        if (items.isEmpty()) {
+                            if (lastRecommended.isEmpty()) {
+                                recommendedStatus.text = getString(R.string.no_songs_found)
+                                recommendedStatus.visibility = View.VISIBLE
+                            } else {
+                                recommendedStatus.visibility = View.GONE
+                            }
+                        }
                     }
+
                 }
 
             } catch (e: Exception) {
