@@ -88,7 +88,6 @@ class FragmentInicio : Fragment() {
         // Configurar RecyclerView para mostrar lista vertical de canciones recomendadas
         // Mostrar los items en horizontal (fila) para la sección de recomendados
         recommendedRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        recommendedRecycler.setHasFixedSize(true)
         songAdapter = SongItemAdapter(mutableListOf()) { song ->
             PlaylistManager.addSong(song)
             Toast.makeText(requireContext(), getString(R.string.added_to_playlist), Toast.LENGTH_SHORT).show()

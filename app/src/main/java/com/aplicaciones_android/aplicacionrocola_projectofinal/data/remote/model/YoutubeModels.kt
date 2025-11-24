@@ -9,7 +9,7 @@ data class YoutubeSearchResponse(
 ) {
     companion object {
         fun fromJson(json: JSONObject): YoutubeSearchResponse {
-            val next = json.optString("nextPageToken", null)
+            val next = json.optString("nextPageToken", "").takeIf { it.isNotBlank() }
             val items = json.optJSONArray("items")
             val ids = mutableListOf<String>()
             val raw = mutableListOf<JSONObject>()
@@ -71,4 +71,3 @@ data class YoutubeVideosResponse(
         private val PATTERN = java.util.regex.Pattern.compile("PT(?:(\\d+)H)?(?:(\\d+)M)?(?:(\\d+)S)?")
     }
 }
-
