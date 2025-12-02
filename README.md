@@ -3,18 +3,18 @@
 AplicacionRocola es una app Android pensada para restaurantes que desean ofrecer una "rocola" digital y un menú administrable desde Firebase. La aplicación muestra banners personalizables, recomendaciones musicales en vivo (YouTube Data API), un buscador con filtros por género y una playlist compartida respaldada en Firestore.
 
 ## Contenido
-- [Características principales](#características-principales)
-- [Instalación y ejecución](#instalación-y-ejecución)
-- [Arquitectura y organización](#arquitectura-y-organización)
-- [Configuración del proyecto](#configuración-del-proyecto)
+- [Características principales](#caracter%C3%ADsticas-principales)
+- [Instalación y ejecución](#instalaci%C3%B3n-y-ejecuci%C3%B3n)
+- [Arquitectura y organización](#arquitectura-y-organizaci%C3%B3n)
+- [Configuración del proyecto](#configuraci%C3%B3n-del-proyecto)
   - [AndroidManifest.xml](#androidmanifestxml)
-  - [Gradle de proyecto y módulo](#gradle-de-proyecto-y-módulo)
+  - [Gradle de proyecto y módulo](#gradle-de-proyecto-y-m%C3%B3dulo)
   - [Versionado y dependencias](#versionado-y-dependencias)
 - [Assets y recursos](#assets-y-recursos)
 - [Layouts responsivos](#layouts-responsivos)
 - [Build variants](#build-variants)
-- [Simulación de error de configuración](#simulación-de-error-de-configuración)
-- [Reflexión: riesgos de un mal manejo](#reflexión-riesgos-de-un-mal-manejo)
+- [Simulación de error de configuración](#simulaci%C3%B3n-de-error-de-configuraci%C3%B3n)
+- [Reflexión: riesgos de un mal manejo](#reflexi%C3%B3n-riesgos-de-un-mal-manejo)
 - [Pruebas automatizadas](#pruebas-automatizadas)
 
 ## Características principales
@@ -99,4 +99,3 @@ Ubicación: `app/src/main/AndroidManifest.xml`.
 
 ---
 Para contribuciones o dudas, revisa la estructura en `app/src/main/java` y los layouts en `app/src/main/res`. Cualquier mejora (por ejemplo, variantes landscape, lint baseline o nuevas pruebas) es bienvenida.
-
